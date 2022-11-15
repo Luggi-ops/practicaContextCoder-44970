@@ -7,7 +7,6 @@ const ItemListContainer = () => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [valueInput, setValueInput] = useState("")
 
     useEffect(() => {
         getData()
@@ -35,7 +34,7 @@ const ItemListContainer = () => {
                     {
                         data.map((product) => (
                             <div className="col-4" key={product.id}>
-                                <ItemProduct id={product.id} nombre={product.name} descripcion={product.description} img={product.img} precio={product.price} stock={product.stock}/>
+                                <ItemProduct data={product} id={product.id} nombre={product.name} descripcion={product.description} img={product.img} precio={product.price} stock={product.stock}/>
                             </div>
                         ))
                     }

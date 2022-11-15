@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardFooter, CardText, CardTitle } from 'reactstrap'
+import { FavoriteContext } from '../context/FavoriteContext';
 
 const ItemProduct = (props) => {
 
-    const {id, nombre, descripcion, img, precio, stock} = props;
+    const {id, nombre, descripcion, img, precio, stock, data} = props;
+    const { addToFavorites, isFavorite, removeFavorite } = useContext(FavoriteContext);
 
+    const togleFavorite = () => {
+        if(isFavorite(data)){
+            removeFavorite(data)
+        }else{
+            addToFavorites(data)
+        }
+    }
+    
     return (
         <>
             <Card
@@ -31,6 +41,20 @@ const ItemProduct = (props) => {
                 <CardFooter>
                     Stock {stock}
                     $ {precio}
+                    {/* {
+                        isFavorite(data)?
+                            <div onClick={ () => removeFavorite(data)}>
+                                <i class="fas fa-heart" style={{fontSize: "20px", color: "red"}} />
+                            </div>
+                            :
+                            <div onClick={ () => addToFavorites(data)}>
+                                <i class="far fa-heart" style={{fontSize: "20px"}} />
+                            </div>
+                    } */}
+
+                        <div onClick={ togleFavorite }>
+                            <i class={isFavorite(data)? "fas fa-heart" : "far fa-heart"} style={{fontSize: "20px", color: isFavorite(data)? "red" : "black"}} />
+                        </div>
                 </CardFooter>
             </Card>
         </>
